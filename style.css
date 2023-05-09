@@ -1,1 +1,43 @@
 /* Write your CSS Here. */
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container{
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    width: 420px;
+    height: 300px;
+}
+
+
+#player {
+
+animation: anime 1s infinite;
+transition: all 300ms ease-out;
+/* animation: slideRight 100ms linear; */
+}
+
+@keyframes anime {
+    0%{
+        filter: hue-rotate(0);
+    }
+   
+    100%{
+        filter: hue-rotate( 500deg);
+    }
+    
+}
+
+@keyframes slideRight {
+0%{
+    transform: translateX(0);
+}    
+100%{
+    transform: translateX(20px);
+}
+}
