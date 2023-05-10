@@ -1,1 +1,80 @@
 /* Write your CSS Here. */
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    
+}
+.container{
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    width: 420px;
+    height: 300px;
+}
+
+
+#player {
+
+animation: anime 1s infinite;
+transition: all 200ms ease-out;
+/* animation: slideRight 100ms linear; */
+}
+
+@keyframes anime {
+    0%{
+        filter: hue-rotate(0);
+    }
+   
+    100%{
+        filter: hue-rotate( 500deg);
+    }
+    
+}
+@keyframes victoryText {
+    0%{
+        filter: hue-rotate(0);
+    }
+   
+    100%{
+        filter: hue-rotate( 20000deg);
+    }
+    
+}
+
+
+
+.ending-container{
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 200;
+    border-radius: 10px;
+    box-shadow: 4px 8px 6px 5px rgba(0, 0, 0, .7);
+    background-color: rgba(0, 100, 0, .7);
+
+    font-size: large;
+
+}
+h2{
+    color: red;
+    text-shadow: 2px 4px 4px rgba(0, 0, 0, .8);
+    animation: victoryText infinite 10s linear;
+}
+p{
+    font-weight: bold;
+    text-shadow: 2px 4px 4px rgba(0, 0, 0, .8);
+    animation:  victoryText infinite 10s linear;
+}
+
+.active{
+   
+   filter: brightness(150%);
+   background-color: rgba(150, 143, 143, 0.8);
+}
