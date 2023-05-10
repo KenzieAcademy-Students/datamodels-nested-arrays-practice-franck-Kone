@@ -15,10 +15,7 @@ const map = [
   "W       W       W   W",
   "WWWWWWWWWWWWWWWWWWWWW"
 ];
-const wallPos = {
-  posX: [],
-  posY: []
-}
+
 // Your Code Here.
 let containerEl = document.querySelector('.container')
 
@@ -64,72 +61,85 @@ function drawPlayer() {
 window.addEventListener('keydown', moves)
 
 function moves(event) {
-  let posArr = []
+  let wallPositionsStore = []
 
   let playerBox = document.getElementById('player')
   let wallDiv = document.querySelectorAll('#wallDiv')
-  let currPosX = playerBox.offsetLeft
-  let currPosY = playerBox.offsetTop
-  let verif = Array(2)
+
+  let currentPlayerPosX = playerBox.offsetLeft
+  let currentPlayerPosY = playerBox.offsetTop
+  console.log(currentPlayerPosX, currentPlayerPosY)
+  let playerPosAfterMoves = Array(2)
 
   for (let eltWall in wallDiv) {
-    let arrPos = Array(2)
-    arrPos[0] = wallDiv[eltWall].offsetLeft
-    arrPos[1] = wallDiv[eltWall].offsetTop
-    posArr.push(`${arrPos}`)
+    let elementWallPositions = Array(2)
+    elementWallPositions[0] = wallDiv[eltWall].offsetLeft
+    elementWallPositions[1] = wallDiv[eltWall].offsetTop
+    wallPositionsStore.push(`${elementWallPositions}`)
 
   }
   
   if (event.key === 'ArrowUp') {
     
-    verif[0] = playerBox.offsetLeft
-    verif[1] = playerBox.offsetTop - 20
+    playerPosAfterMoves[0] = playerBox.offsetLeft
+    playerPosAfterMoves[1] = playerBox.offsetTop - 20
     
-    if (posArr.includes(`${verif}`) === true) {
-      playerBox.offsetTop = currPosY 
-      playerBox.offsetLeft = currPosX 
+    if (wallPositionsStore.includes(`${playerPosAfterMoves}`) === true) {
+      playerBox.offsetTop = currentPlayerPosY 
+      playerBox.offsetLeft = currentPlayerPosX 
     
-    } else if (!posArr.includes(`${verif}`)){
+    } else if (!wallPositionsStore.includes(`${playerPosAfterMoves}`)){
     
       playerBox.style.top = playerBox.offsetTop -20 + 'px'
-      playerBox.style.left = currPosX + 'px'
+      playerBox.style.left = currentPlayerPosX + 'px'
     }
 
   } else if (event.key === 'ArrowDown') {
-    verif[0] = playerBox.offsetLeft
-    verif[1] = playerBox.offsetTop + 20
+    playerPosAfterMoves[0] = playerBox.offsetLeft
+    playerPosAfterMoves[1] = playerBox.offsetTop + 20
 
-    if (posArr.includes(`${verif}`) === true) {
-      playerBox.offsetTop = currPosY
-      playerBox.offsetLeft = currPosX 
-    } else if (!posArr.includes(`${verif}`)) {
+    if (wallPositionsStore.includes(`${playerPosAfterMoves}`) === true) {
+      playerBox.offsetTop = currentPlayerPosY
+      playerBox.offsetLeft = currentPlayerPosX 
+    } else if (!wallPositionsStore.includes(`${playerPosAfterMoves}`)) {
       playerBox.style.top = playerBox.offsetTop + 20 + 'px'
-      playerBox.style.left = currPosX + 'px'
+      playerBox.style.left = currentPlayerPosX + 'px'
     }
 
   } else if (event.key === 'ArrowLeft') {
-    verif[0] = playerBox.offsetLeft - 20
-    verif[1] = playerBox.offsetTop
+    playerPosAfterMoves[0] = playerBox.offsetLeft - 20
+    playerPosAfterMoves[1] = playerBox.offsetTop
 
-    if (posArr.includes(`${verif}`) === true) {
-      playerBox.offsetTop = currPosY
-      playerBox.offsetLeft = currPosX
-    } else if (!posArr.includes(`${verif}`)) {
-      playerBox.style.top = currPosY + 'px'
+    if (wallPositionsStore.includes(`${playerPosAfterMoves}`) === true || playerPosAfterMoves[0] < 0) {
+      playerBox.offsetTop = currentPlayerPosY
+      playerBox.offsetLeft = currentPlayerPosX
+    } else if (!wallPositionsStore.includes(`${playerPosAfterMoves}`)) {
+      playerBox.style.top = currentPlayerPosY + 'px'
       playerBox.style.left = playerBox.offsetLeft - 20 + 'px'
     }
 
   } else if (event.key === 'ArrowRight') {
-    verif[0] = playerBox.offsetLeft + 20
-    verif[1] = playerBox.offsetTop
+    playerPosAfterMoves[0] = playerBox.offsetLeft + 20
+    playerPosAfterMoves[1] = playerBox.offsetTop
 
-    if (posArr.includes(`${verif}`) === true) {
-      playerBox.offsetTop = currPosY
-      playerBox.offsetLeft = currPosX
-    } else if (!posArr.includes(`${verif}`)) {
-      playerBox.style.top = currPosY + 'px'
+    if (wallPositionsStore.includes(`${playerPosAfterMoves}`) === true ) {
+      playerBox.offsetTop = currentPlayerPosY
+      playerBox.offsetLeft = currentPlayerPosX
+    } else if (!wallPositionsStore.includes(`${playerPosAfterMoves}`)) {
+      playerBox.style.top = currentPlayerPosY + 'px'
       playerBox.style.left = playerBox.offsetLeft + 20 + 'px'
     }
+  }
+gameOver(playerBox)
+}
+
+function gameOver(myParam){
+
+  if ( myParam.offsetLeft === 380 && myParam.offsetTop === 160) {
+    document.body.classList.add('active')
+    containerEl.style.display = 'none'
+
+    document.getElementById('gameOver').style.display = 'flex'
   }
 
 }
